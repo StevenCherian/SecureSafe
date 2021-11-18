@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMSC413Project">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/SplashTheme">
