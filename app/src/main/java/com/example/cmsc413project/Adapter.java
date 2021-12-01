@@ -9,17 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.imageview.ShapeableImageView;
-
 import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
     Context context;
-    ArrayList<Passcodes> passcodesArrayList;
+    ArrayList<LoginCredentials> loginCredentialsArrayList;
 
-    public Adapter(Context context, ArrayList<Passcodes> passcodesArrayList) {
+    public Adapter(Context context, ArrayList<LoginCredentials> loginCredentialsArrayList) {
         this.context = context;
-        this.passcodesArrayList = passcodesArrayList;
+        this.loginCredentialsArrayList = loginCredentialsArrayList;
     }
 
     @NonNull
@@ -31,28 +29,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.MyView holder, int position) {
-
-        Passcodes passcodes = passcodesArrayList.get(position);
-        holder.appHeading.setText(passcodes.appName);
-        holder.appImage.setImageResource(passcodes.appImage);
-        holder.pwdHeading.setText(passcodes.password);
+        LoginCredentials loginCredentials = loginCredentialsArrayList.get(position);
+        holder.appHeading.setText(loginCredentials.appName);
+        holder.pwdHeading.setText(loginCredentials.password);
     }
 
     @Override
     public int getItemCount() {
-        return passcodesArrayList.size();
+        return loginCredentialsArrayList.size();
     }
 
-    public static class MyView extends RecyclerView.ViewHolder{
+    public static class MyView extends RecyclerView.ViewHolder {
         TextView appHeading;
-        ShapeableImageView appImage;
         TextView pwdHeading;
-
 
         public MyView(@NonNull View itemView) {
             super(itemView);
             appHeading = itemView.findViewById(R.id.appHeading);
-            appImage = itemView.findViewById(R.id.title_image);
             pwdHeading = itemView.findViewById(R.id.pwdHeading);
         }
     }

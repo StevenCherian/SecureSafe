@@ -14,11 +14,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<Passcodes> passcodesarrayList;
+    ArrayList<LoginCredentials> loginCredentialsArrayList;
     Adapter adapter;
     String[] appHeading;
     String[] pwdHeading;
-    int[] imageResourceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +40,45 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        passcodesarrayList = new ArrayList<Passcodes>();
+        loginCredentialsArrayList = new ArrayList<LoginCredentials>();
 
-        adapter = new Adapter(this, passcodesarrayList);
+        adapter = new Adapter(this, loginCredentialsArrayList);
         recyclerView.setAdapter((adapter));
 
-        appHeading = new String[]{
+        appHeading = new String[] {
+                "Amazon",
+                "Apple",
+                "Google",
+                "VCU",
+                "Netflix",
+                "Amazon",
+                "Apple",
+                "Google",
+                "VCU",
+                "Netflix",
                 "Amazon",
                 "Apple",
                 "Google",
                 "VCU",
                 "Netflix"
         };
-        pwdHeading = new String[]{
+
+        pwdHeading = new String[] {
+                "AmazonPwd1234",
+                "ApplePwd5678",
+                "GooglePwd1357",
+                "VCUPwd2468",
+                "NetflixPwd9876",
+                "AmazonPwd1234",
+                "ApplePwd5678",
+                "GooglePwd1357",
+                "VCUPwd2468",
+                "NetflixPwd9876",
                 "AmazonPwd1234",
                 "ApplePwd5678",
                 "GooglePwd1357",
@@ -65,26 +86,16 @@ public class MainActivity extends AppCompatActivity {
                 "NetflixPwd9876"
         };
 
-        imageResourceId = new int[]{
-                R.drawable.amazon,
-                R.drawable.apple,
-                R.drawable.google,
-                R.drawable.vcu,
-                R.drawable.netflix,
-        };
-
         getData();
-        
     }
 
     private void getData() {
-        for(int i = 0;i<appHeading.length;i++){
-            Passcodes passcodes = new Passcodes(appHeading[i], pwdHeading[i], imageResourceId[i]);
-            passcodesarrayList.add(passcodes);
+        for(int i = 0; i < appHeading.length; i++) {
+            LoginCredentials loginCredentials = new LoginCredentials(appHeading[i], pwdHeading[i]);
+            loginCredentialsArrayList.add(loginCredentials);
         }
 
         adapter.notifyDataSetChanged();
-
     }
 
     @Override

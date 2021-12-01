@@ -1,13 +1,11 @@
 package com.example.cmsc413project;
 
-public class Passcodes {
+public class LoginCredentials {
     String appName;
     String password;
-    int appImage;
 
-    public Passcodes(String appName, String password, int appImage) {
+    public LoginCredentials(String appName, String password) {
         this.appName = appName;
         this.password = password;
-        this.appImage = appImage;
     }
 }
