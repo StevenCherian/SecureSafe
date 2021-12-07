@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMSC413Project">
         <activity
+            android:name=".AddCredentialsActivity"
+            android:exported="true" />
+        <activity
             android:name=".PasscodeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

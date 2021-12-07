@@ -5,11 +5,14 @@
       <map>
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2657407407407407" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/background_splash.xml" value="0.2657407407407407" />
+        <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/ic_add_24.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2657407407407407" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/ic_lock.xml" value="0.2657407407407407" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/ic_settings.xml" value="0.2657407407407407" />
+        <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/rounded_inputbox.xml" value="1.3178571428571428" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/drawable/selector.xml" value="0.2657407407407407" />
-        <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/layout/activity_add_credentials.xml" value="0.264" />
+        <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/layout/activity_passcode.xml" value="0.2" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/steve/OneDrive/Documents/GitHub/CMSC413Project/app/src/main/res/layout/password_list.xml" value="0.4" />

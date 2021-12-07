@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        Button addButton = findViewById(R.id.addCredentialsButton);
+        addButton.setOnClickListener(view -> openNewCredentialsPage());
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -96,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    private void openNewCredentialsPage() {
+        Intent newCredentialsPage = new Intent(this, AddCredentialsActivity.class);
+        startActivity(newCredentialsPage);
     }
 
     @Override
