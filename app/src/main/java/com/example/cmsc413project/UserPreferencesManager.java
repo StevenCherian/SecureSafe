@@ -37,10 +37,15 @@ public class UserPreferencesManager {
         loginCredentials = getLoginCredentials();
     }
 
-    void removeLoginCredentials(LoginCredentials loginCredential) {
+    void removeLoginCredentialsByID(int id) {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
-        loginCredentials.remove(loginCredential);
+
+        for(int i = 0; i < loginCredentials.size(); i++){
+            if(loginCredentials.get(i).id == id)
+                loginCredentials.remove(i);
+        }
+
         String loginCredentialsJson = gson.toJson(loginCredentials);
         editor.putString(PREFS_LOGIN_CREDENTIALS, loginCredentialsJson);
         editor.apply();

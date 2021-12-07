@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -48,9 +50,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
+        LinearLayout noCredentialsView = findViewById(R.id.noCredentialsView);
+
         manager = new UserPreferencesManager(MainActivity.this);
         loginCredentialsArrayList = manager.getLoginCredentials();
         recyclerView.setAdapter(new Adapter(this, loginCredentialsArrayList));
+
+        if(loginCredentialsArrayList.size()>0)
+            noCredentialsView.setVisibility(View.GONE);
     }
 
 
