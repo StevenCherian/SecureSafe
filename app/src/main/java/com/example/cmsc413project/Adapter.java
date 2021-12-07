@@ -31,6 +31,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
     public void onBindViewHolder(@NonNull Adapter.MyView holder, int position) {
         LoginCredentials loginCredentials = loginCredentialsArrayList.get(position);
         holder.appHeading.setText(loginCredentials.appName);
+        holder.emailHeading.setText(loginCredentials.email);
         holder.pwdHeading.setText(loginCredentials.password);
     }
 
@@ -41,11 +42,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
 
     public static class MyView extends RecyclerView.ViewHolder {
         TextView appHeading;
+        TextView emailHeading;
         TextView pwdHeading;
 
         public MyView(@NonNull View itemView) {
             super(itemView);
             appHeading = itemView.findViewById(R.id.appHeading);
+            emailHeading = itemView.findViewById(R.id.emailHeading);
             pwdHeading = itemView.findViewById(R.id.pwdHeading);
         }
     }

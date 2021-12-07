@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<LoginCredentials> loginCredentialsArrayList;
     Adapter adapter;
     String[] appHeading;
+    String[] emailHeading;
     String[] pwdHeading;
 
     @Override
@@ -74,6 +75,24 @@ public class MainActivity extends AppCompatActivity {
                 "Netflix"
         };
 
+        emailHeading = new String[] {
+                "Amazon@gmail.com",
+                "Apple@gmail.com",
+                "Google@gmail.com",
+                "VCU@gmail.com",
+                "Netflix@gmail.com",
+                "Amazon@gmail.com",
+                "Apple@gmail.com",
+                "Google@gmail.com",
+                "VCU@gmail.com",
+                "Netflix@gmail.com",
+                "Amazon@gmail.com",
+                "Apple@gmail.com",
+                "Google@gmail.com",
+                "VCU@gmail.com",
+                "Netflix@gmail.com"
+        };
+
         pwdHeading = new String[] {
                 "AmazonPwd1234",
                 "ApplePwd5678",
@@ -97,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getData() {
         for(int i = 0; i < appHeading.length; i++) {
-            LoginCredentials loginCredentials = new LoginCredentials(appHeading[i], pwdHeading[i]);
+            LoginCredentials loginCredentials = new LoginCredentials(appHeading[i], emailHeading[i], pwdHeading[i]);
             loginCredentialsArrayList.add(loginCredentials);
         }
 

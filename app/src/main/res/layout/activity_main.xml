@@ -5,7 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#16222B"
+    android:translationX="0dp"
+    android:translationY="0dp"
+    android:translationZ="0dp"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/MySafeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="My Safe"
+            android:textColor="#3F7FB6"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addCredentialsButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/ic_add_24"
+            android:backgroundTint="@color/text_blue"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -17,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_nav" >
+        app:menu="@menu/menu_nav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
@@ -26,44 +69,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bottom_nav"
+        android:layout_marginBottom="65dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MySafeText">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/MySafeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="322dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="My Safe"
-        android:textColor="#3F7FB6"
-        android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addCredentialsButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/ic_add_24"
-        android:backgroundTint="@color/text_blue"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.74"
-        app:layout_constraintStart_toEndOf="@+id/MySafeText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
