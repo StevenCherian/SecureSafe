@@ -1,18 +1,27 @@
 package com.example.cmsc413project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,18 +63,63 @@ public class MainActivity extends AppCompatActivity {
 
         manager = new UserPreferencesManager(MainActivity.this);
         loginCredentialsArrayList = manager.getLoginCredentials();
+
+        Collections.sort(loginCredentialsArrayList, new Comparator<LoginCredentials>() {
+            @Override
+            public int compare(LoginCredentials lc1, LoginCredentials lc2) {
+                return lc1.appName.compareToIgnoreCase(lc2.appName);
+            }
+        });
+
         recyclerView.setAdapter(new Adapter(this, loginCredentialsArrayList));
 
         if(loginCredentialsArrayList.size()>0)
             noCredentialsView.setVisibility(View.GONE);
-    }
 
+        LinearLayout searchView = findViewById(R.id.searchView);
+
+        AppCompatButton searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 35f);
+                animation.setDuration(125);
+                animation.start();
+            }
+        });
+
+        AppCompatButton closeSearchView = findViewById(R.id.closeSearchView);
+        EditText searchInput = findViewById(R.id.searchInput);
+        closeSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+                searchInput.setText("");
+
+                ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
+                animation.setDuration(125);
+                animation.start();
+
+                //CLEAR FILTER
+                recyclerView.setAdapter(new Adapter(MainActivity.this, loginCredentialsArrayList));
+            }
+        });
+    }
 
     private void openNewCredentialsPage() {
         Intent newCredentialsPage = new Intent(this, AddCredentialsActivity.class);
         startActivity(newCredentialsPage);
     }
 
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+
+        if (view != null) {
+            InputMethodManager manager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     @Override
     public void onBackPressed() {

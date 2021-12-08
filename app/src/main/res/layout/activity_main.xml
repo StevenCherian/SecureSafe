@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="#16222B"
+    android:outlineAmbientShadowColor="@android:color/transparent"
+    android:outlineSpotShadowColor="@android:color/transparent"
     android:translationX="0dp"
     android:translationY="0dp"
     android:translationZ="0dp"
@@ -37,6 +40,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ic_search_24"
+            android:backgroundTint="@color/text_blue"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addCredentialsButton"
@@ -110,7 +121,54 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="#2F5270"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:background="#203043"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:translationY="-110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:autofillHints="Search..."
+            android:background="@drawable/rounded_inputbox"
+            android:backgroundTint="#16222B"
+            android:ems="10"
+            android:hint="Search..."
+            android:inputType="textVisiblePassword"
+            android:paddingHorizontal="12dp"
+            android:textColor="@color/text_blue"
+            android:textColorHint="@color/text_blue"
+            app:boxBackgroundMode="none"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/closeSearchView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_add_24"
+            android:backgroundTint="@color/text_blue"
+            android:rotation="45"
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
