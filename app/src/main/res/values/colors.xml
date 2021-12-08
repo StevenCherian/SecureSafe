@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="splash_blue">#16222B</color>
     <color name="background_blue">#16222B</color>
+    <color name="button_active_blue">#345F83</color>
     <color name="text_blue">#3F7FB6</color>
 </resources>
