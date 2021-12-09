@@ -110,7 +110,7 @@
             android:id="@+id/noCredentialsImage"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            app:srcCompat="@drawable/lock"
+            app:srcCompat="@drawable/ic_lock"
             app:tint="@color/text_blue" />
 
         <TextView

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 35f);
+                ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 15f);
                 animation.setDuration(125);
                 animation.start();
             }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 searchInput.setText("");
 
                 ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
-                animation.setDuration(125);
+                animation.setDuration(250);
                 animation.start();
 
                 //CLEAR FILTER
