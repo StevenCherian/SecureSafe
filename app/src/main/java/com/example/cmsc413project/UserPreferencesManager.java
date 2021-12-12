@@ -41,9 +41,11 @@ public class UserPreferencesManager {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
 
-        for(int i = 0; i < loginCredentials.size(); i++){
-            if(loginCredentials.get(i).id == id)
+        for(int i = 0; i < loginCredentials.size(); i++) {
+            if(loginCredentials.get(i).id == id) {
                 loginCredentials.remove(i);
+                break;
+            }
         }
 
         String loginCredentialsJson = gson.toJson(loginCredentials);
@@ -52,15 +54,39 @@ public class UserPreferencesManager {
         loginCredentials = getLoginCredentials();
     }
 
-//    void updateLoginCredentials(LoginCredentials loginCredential){
-//        SharedPreferences.Editor editor = userPrefs.edit();
-//        Gson gson = new Gson();
-//        if(loginCredentials.contains(loginCredential))
-//        String loginCredentialsJson = gson.toJson(loginCredentials);
-//        editor.putString(PREFS_LOGIN_CREDENTIALS, loginCredentialsJson);
-//        editor.apply();
-//        loginCredentials = getLoginCredentials();
-//    }
+     LoginCredentials getLoginCredentialsByID(int id) {
+
+        LoginCredentials lc = new LoginCredentials(-1, "", "", "");
+        for(int i = 0; i < loginCredentials.size(); i++) {
+            if(loginCredentials.get(i).id == id) {
+                lc = loginCredentials.get(i);
+                break;
+            }
+        }
+
+        return lc;
+    }
+
+    void updateLoginCredentials(int id, String newAccountTitle, String newEmail, String newPassword){
+        SharedPreferences.Editor editor = userPrefs.edit();
+        Gson gson = new Gson();
+
+        LoginCredentials lc;
+        for(int i = 0; i < loginCredentials.size(); i++){
+            if(loginCredentials.get(i).id == id) {
+                lc = loginCredentials.get(i);
+                lc.appName = newAccountTitle;
+                lc.password = newPassword;
+                lc.email = newEmail;
+                break;
+            }
+        }
+
+        String loginCredentialsJson = gson.toJson(loginCredentials);
+        editor.putString(PREFS_LOGIN_CREDENTIALS, loginCredentialsJson);
+        editor.apply();
+        loginCredentials = getLoginCredentials();
+    }
 
     int newID(){
         SharedPreferences.Editor editor = userPrefs.edit();

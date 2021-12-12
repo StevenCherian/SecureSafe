@@ -1,17 +1,14 @@
 package com.example.cmsc413project;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,19 +47,35 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
             @Override
             public void onClick(View view) {
                 view.startAnimation(buttonPressAnimation);
-
-                view.postOnAnimationDelayed(new Runnable() {
+                buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void run() {
-                        int adapterPos = holder.getAdapterPosition();
-                        LoginCredentials lc = loginCredentialsArrayList.get(adapterPos);
-                        int id = lc.id;
-                        manager.removeLoginCredentialsByID(id);
-                        Adapter.this.notifyItemRemoved(adapterPos);
-                        Adapter.this.notifyItemRangeChanged(adapterPos, 1);
-                        loginCredentialsArrayList = manager.getLoginCredentials();
+                    public void onAnimationStart(Animation animation) {}
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        deleteItemAt(holder.getAdapterPosition());
                     }
-                }, 180);
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+            }
+        });
+
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(buttonPressAnimation);
+                buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        editItemAt(holder.getAdapterPosition());
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
             }
         });
     }
@@ -87,5 +100,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
             removeButton = itemView.findViewById(R.id.removeButton);
             editButton = itemView.findViewById(R.id.editButton);
         }
+    }
+
+
+    public void editItemAt(int adapterPos) {
+        int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
+        Intent edit = new Intent(context, EditCredentialsActivity.class);
+        edit.putExtra("credentialsID", credentialsID);
+        context.startActivity(edit);
+    }
+
+
+    public void deleteItemAt(int adapterPos) {
+        int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
+        manager.removeLoginCredentialsByID(credentialsID);
+        Adapter.this.notifyItemRemoved(adapterPos);
+        loginCredentialsArrayList = manager.getLoginCredentials();
     }
 }
