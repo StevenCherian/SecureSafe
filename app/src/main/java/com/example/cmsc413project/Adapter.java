@@ -11,10 +11,8 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Filterable {
@@ -47,40 +45,36 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
 
         Animation buttonPressAnimation = AnimationUtils.loadAnimation(this.context, R.anim.button_press);
 
-        holder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonPressAnimation);
-                buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {}
+        holder.removeButton.setOnClickListener(view -> {
+            view.startAnimation(buttonPressAnimation);
+            buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        deleteItemAt(holder.getAdapterPosition());
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                });
-            }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    deleteItemAt(holder.getAdapterPosition());
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
         });
 
-        holder.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonPressAnimation);
-                buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {}
+        holder.editButton.setOnClickListener(view -> {
+            view.startAnimation(buttonPressAnimation);
+            buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        editItemAt(holder.getAdapterPosition());
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                });
-            }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    editItemAt(holder.getAdapterPosition());
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
         });
     }
 
@@ -102,9 +96,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                     for (LoginCredentials row : backupCredentialsArraylist) {
 
                         // search for account titles that match search query
-                        if (row.appName.toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.appName.toLowerCase().contains(charString.toLowerCase()))
                             filteredList.add(row);
-                        }
                     }
 
                     loginCredentialsArrayList = filteredList;
@@ -125,7 +118,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         };
     }
 
-
     public static class MyView extends RecyclerView.ViewHolder {
         TextView appHeading;
         TextView emailHeading;
@@ -143,14 +135,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         }
     }
 
-
     public void editItemAt(int adapterPos) {
         int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
         Intent edit = new Intent(context, EditCredentialsActivity.class);
         edit.putExtra("credentialsID", credentialsID);
         context.startActivity(edit);
     }
-
 
     public void deleteItemAt(int adapterPos) {
         int credentialsID = loginCredentialsArrayList.get(adapterPos).id;

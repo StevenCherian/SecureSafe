@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +16,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Adapter adapter;
     EditText searchCredentials;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout noCredentialsView = findViewById(R.id.noCredentialsView);
 
-        Collections.sort(loginCredentialsArrayList, new Comparator<LoginCredentials>() {
-            @Override
-            public int compare(LoginCredentials lc1, LoginCredentials lc2) {
-                return lc1.appName.compareToIgnoreCase(lc2.appName);
-            }
-        });
+        Collections.sort(loginCredentialsArrayList, (lc1, lc2) -> lc1.appName.compareToIgnoreCase(lc2.appName));
 
         if(loginCredentialsArrayList.size()>0)
             noCredentialsView.setVisibility(View.GONE);
@@ -95,33 +88,27 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout searchView = findViewById(R.id.searchView);
 
         AppCompatButton searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 15f);
-                animation.setDuration(125);
-                animation.start();
-                searchCredentials.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(searchCredentials, InputMethodManager.SHOW_IMPLICIT);
+        searchButton.setOnClickListener(view -> {
+            ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 7f);
+            animation.setDuration(125);
+            animation.start();
+            searchCredentials.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(searchCredentials, InputMethodManager.SHOW_IMPLICIT);
 
-            }
         });
 
         AppCompatButton closeSearchView = findViewById(R.id.closeSearchView);
-        closeSearchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                closeKeyboard();
-                searchCredentials.setText("");
+        closeSearchView.setOnClickListener(view -> {
+            closeKeyboard();
+            searchCredentials.setText("");
 
-                ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
-                animation.setDuration(250);
-                animation.start();
+            ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
+            animation.setDuration(250);
+            animation.start();
 
-                //CLEAR FILTER
-                recyclerView.setAdapter(adapter);
-            }
+            //CLEAR FILTER
+            recyclerView.setAdapter(adapter);
         });
     }
 

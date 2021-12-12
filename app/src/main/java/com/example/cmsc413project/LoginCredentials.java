@@ -1,7 +1,5 @@
 package com.example.cmsc413project;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 public class LoginCredentials {
@@ -23,14 +21,6 @@ public class LoginCredentials {
 
     public String decrypt(String password){
         return password;
-    }
-
-    public void updatePassword(String newPassword){
-        this.password = encrypt(newPassword);
-    }
-
-    public void updateEmail(String newEmail){
-        this.email = newEmail;
     }
 
     @NonNull

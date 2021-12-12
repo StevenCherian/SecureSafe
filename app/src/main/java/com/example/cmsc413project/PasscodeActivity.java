@@ -1,10 +1,8 @@
 package com.example.cmsc413project;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.hanks.passcodeview.PasscodeView;
 
 public class PasscodeActivity extends AppCompatActivity {
@@ -20,9 +18,7 @@ public class PasscodeActivity extends AppCompatActivity {
                 .setLocalPasscode("1")
                 .setListener(new PasscodeView.PasscodeViewListener() {
                     @Override
-                    public void onFail() {
-
-                    }
+                    public void onFail() {}
 
                     @Override
                     public void onSuccess(String number) {

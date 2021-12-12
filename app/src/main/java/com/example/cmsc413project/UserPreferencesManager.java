@@ -1,19 +1,16 @@
 package com.example.cmsc413project;
 
 import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class UserPreferencesManager {
 
-    private SharedPreferences userPrefs;
+    private final SharedPreferences userPrefs;
     public ArrayList<LoginCredentials> loginCredentials;
     public int latestID;
     private static final String PREFS_NAME = "prefs";
@@ -67,12 +64,12 @@ public class UserPreferencesManager {
         return lc;
     }
 
-    void updateLoginCredentials(int id, String newAccountTitle, String newEmail, String newPassword){
+    void updateLoginCredentials(int id, String newAccountTitle, String newEmail, String newPassword) {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
 
         LoginCredentials lc;
-        for(int i = 0; i < loginCredentials.size(); i++){
+        for(int i = 0; i < loginCredentials.size(); i++) {
             if(loginCredentials.get(i).id == id) {
                 lc = loginCredentials.get(i);
                 lc.appName = newAccountTitle;
@@ -88,7 +85,7 @@ public class UserPreferencesManager {
         loginCredentials = getLoginCredentials();
     }
 
-    int newID(){
+    int newID() {
         SharedPreferences.Editor editor = userPrefs.edit();
         latestID+=1;
         editor.putInt(PREFS_LATEST_ID, latestID);
