@@ -8,8 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 
 public class EditCredentialsActivity extends AppCompatActivity {
 
@@ -27,6 +27,10 @@ public class EditCredentialsActivity extends AppCompatActivity {
         LoginCredentials lc = manager.getLoginCredentialsByID(credentialsID);
 
         if(lc.id == -1){
+            Toast t = new Toast(this);
+            t.setDuration(Toast.LENGTH_SHORT);
+            t.setText("Something went wrong");
+            t.show();
             closeNewCredentialsPage();
         }
 
@@ -60,6 +64,12 @@ public class EditCredentialsActivity extends AppCompatActivity {
     public void updateLoginCredential(String account, String email, String password) {
         if(credentialsID != -1)
             manager.updateLoginCredentials(credentialsID, account, email, password);
+        else {
+            Toast t = new Toast(this);
+            t.setDuration(Toast.LENGTH_SHORT);
+            t.setText("Something went wrong");
+            t.show();
+        }
     }
 
     private void closeNewCredentialsPage() {

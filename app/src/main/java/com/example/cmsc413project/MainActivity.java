@@ -9,9 +9,9 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,11 +29,15 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<LoginCredentials> loginCredentialsArrayList;
     UserPreferencesManager manager;
     Adapter adapter;
+    EditText searchCredentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        manager = new UserPreferencesManager(MainActivity.this);
+        loginCredentialsArrayList = manager.getLoginCredentials();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -55,14 +59,28 @@ public class MainActivity extends AppCompatActivity {
         Button addButton = findViewById(R.id.addCredentialsButton);
         addButton.setOnClickListener(view -> openNewCredentialsPage());
 
+        adapter = new Adapter(this, loginCredentialsArrayList);
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+
+        searchCredentials = findViewById(R.id.searchInput);
+        searchCredentials.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
 
         LinearLayout noCredentialsView = findViewById(R.id.noCredentialsView);
-
-        manager = new UserPreferencesManager(MainActivity.this);
-        loginCredentialsArrayList = manager.getLoginCredentials();
 
         Collections.sort(loginCredentialsArrayList, new Comparator<LoginCredentials>() {
             @Override
@@ -70,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 return lc1.appName.compareToIgnoreCase(lc2.appName);
             }
         });
-
-        recyclerView.setAdapter(new Adapter(this, loginCredentialsArrayList));
 
         if(loginCredentialsArrayList.size()>0)
             noCredentialsView.setVisibility(View.GONE);
@@ -85,23 +101,26 @@ public class MainActivity extends AppCompatActivity {
                 ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 15f);
                 animation.setDuration(125);
                 animation.start();
+                searchCredentials.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(searchCredentials, InputMethodManager.SHOW_IMPLICIT);
+
             }
         });
 
         AppCompatButton closeSearchView = findViewById(R.id.closeSearchView);
-        EditText searchInput = findViewById(R.id.searchInput);
         closeSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 closeKeyboard();
-                searchInput.setText("");
+                searchCredentials.setText("");
 
                 ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
                 animation.setDuration(250);
                 animation.start();
 
                 //CLEAR FILTER
-                recyclerView.setAdapter(new Adapter(MainActivity.this, loginCredentialsArrayList));
+                recyclerView.setAdapter(adapter);
             }
         });
     }

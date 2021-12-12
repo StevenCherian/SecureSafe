@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,14 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
+public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Filterable {
     Context context;
     ArrayList<LoginCredentials> loginCredentialsArrayList;
+    ArrayList<LoginCredentials> backupCredentialsArraylist;
     UserPreferencesManager manager;
 
     public Adapter(Context context, ArrayList<LoginCredentials> loginCredentialsArrayList) {
         this.context = context;
         this.loginCredentialsArrayList = loginCredentialsArrayList;
+        this.backupCredentialsArraylist = loginCredentialsArrayList;
         manager = new UserPreferencesManager(context);
     }
 
@@ -85,6 +89,43 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
         return loginCredentialsArrayList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    loginCredentialsArrayList = backupCredentialsArraylist;
+                } else {
+                    ArrayList<LoginCredentials> filteredList = new ArrayList<>();
+                    for (LoginCredentials row : backupCredentialsArraylist) {
+
+                        // search for account titles that match search query
+                        if (row.appName.toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    loginCredentialsArrayList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = loginCredentialsArrayList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+               loginCredentialsArrayList = (ArrayList<LoginCredentials>) filterResults.values;
+
+                // refresh the list with filtered data
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+
     public static class MyView extends RecyclerView.ViewHolder {
         TextView appHeading;
         TextView emailHeading;
@@ -116,5 +157,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> {
         manager.removeLoginCredentialsByID(credentialsID);
         Adapter.this.notifyItemRemoved(adapterPos);
         loginCredentialsArrayList = manager.getLoginCredentials();
+        backupCredentialsArraylist = loginCredentialsArrayList;
     }
 }
