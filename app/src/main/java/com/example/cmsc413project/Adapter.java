@@ -21,6 +21,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
     ArrayList<LoginCredentials> backupCredentialsArraylist;
     UserPreferencesManager manager;
 
+    //Constructor for the adapter. Gives adapter login credentials. Backup credentials arraylist is used for search
     public Adapter(Context context, ArrayList<LoginCredentials> loginCredentialsArrayList) {
         this.context = context;
         this.loginCredentialsArrayList = loginCredentialsArrayList;
@@ -28,6 +29,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         manager = new UserPreferencesManager(context);
     }
 
+    //Inflates recycler view with our own created list xml. Gives the layout of how each credential will look.
     @NonNull
     @Override
     public Adapter.MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,11 +40,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.MyView holder, int position) {
+        //Fills each list item with login credentials
         LoginCredentials loginCredentials = loginCredentialsArrayList.get(position);
         holder.appHeading.setText(loginCredentials.appName);
         holder.emailHeading.setText(loginCredentials.email);
         holder.pwdHeading.setText(loginCredentials.password);
 
+        //On click listener for delete button. Calls the delete item method.
         Animation buttonPressAnimation = AnimationUtils.loadAnimation(this.context, R.anim.button_press);
 
         holder.removeButton.setOnClickListener(view -> {
@@ -61,6 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
             });
         });
 
+        //On click listener for the edit button. Calls the edit item method.
         holder.editButton.setOnClickListener(view -> {
             view.startAnimation(buttonPressAnimation);
             buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -78,6 +83,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         });
     }
 
+    //Gets total size of login credentials arraylist
     @Override
     public int getItemCount() {
         return loginCredentialsArrayList.size();
@@ -118,6 +124,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         };
     }
 
+    //Gets each item from the passcode list xml in order for it to hold credentials data
     public static class MyView extends RecyclerView.ViewHolder {
         TextView appHeading;
         TextView emailHeading;
@@ -135,6 +142,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         }
     }
 
+    //Gives functionality to the edit button. Passes it the ID of the credential that will be edited.
     public void editItemAt(int adapterPos) {
         int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
         Intent edit = new Intent(context, EditCredentialsActivity.class);
@@ -142,8 +150,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         context.startActivity(edit);
     }
 
+    //Gives functionality to the delete button. Passes it the ID of the credential that will be deleted.
     public void deleteItemAt(int adapterPos) {
         int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
+        //Calls the remove function in user preferences class to correctly remove credential
         manager.removeLoginCredentialsByID(credentialsID);
         Adapter.this.notifyItemRemoved(adapterPos);
         loginCredentialsArrayList = manager.getLoginCredentials();

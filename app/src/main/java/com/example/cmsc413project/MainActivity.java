@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Instantiates manager and fills login credentials arraylist with saved login credential data
         manager = new UserPreferencesManager(MainActivity.this);
         loginCredentialsArrayList = manager.getLoginCredentials();
 
+        //Sets bottom navigation bar and actions
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
@@ -54,9 +56,11 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        //Gives functionality to add credentials button
         Button addButton = findViewById(R.id.addCredentialsButton);
         addButton.setOnClickListener(view -> openNewCredentialsPage());
 
+        //Instantiates the recycler view adapter and gives login credentials data
         adapter = new Adapter(this, loginCredentialsArrayList);
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+        //Gives functionality to search button and input box
         searchCredentials = findViewById(R.id.searchInput);
         searchCredentials.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,11 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout noCredentialsView = findViewById(R.id.noCredentialsView);
 
+        //Sorts recycler view in alphabetical order by app name
         Collections.sort(loginCredentialsArrayList, (lc1, lc2) -> lc1.appName.compareToIgnoreCase(lc2.appName));
 
+        //If there are saved credentials, removes "no credentials" view
         if(loginCredentialsArrayList.size()>0)
             noCredentialsView.setVisibility(View.GONE);
 
+        //Sets on click listener and slide animation to search button and close search button
         LinearLayout searchView = findViewById(R.id.searchView);
 
         AppCompatButton searchButton = findViewById(R.id.searchButton);
@@ -107,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             animation.setDuration(250);
             animation.start();
 
-            //CLEAR FILTER
+            //Clears filter for searching
             recyclerView.setAdapter(adapter);
         });
     }

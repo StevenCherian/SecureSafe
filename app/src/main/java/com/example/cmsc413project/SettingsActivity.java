@@ -16,6 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //Sets bottom navigation bar actions
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.settings);
 
@@ -33,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
             return false;
         });
 
+        //Gives functionality for change passcode button to open new page to change passcode
         Button updatePasswordButton = findViewById(R.id.changePasswordButton);
         updatePasswordButton.setOnClickListener(view -> openUpdatePasswordPage());
 
