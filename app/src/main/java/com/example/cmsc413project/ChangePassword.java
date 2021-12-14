@@ -17,10 +17,12 @@ public class ChangePassword extends AppCompatActivity {
         setContentView(R.layout.changepassword);
         manager = new UserPreferencesManager(this);
 
+        Button closeUpdatePassword = findViewById(R.id.closeUpdatePassword);
+        closeUpdatePassword.setOnClickListener(view -> closeNewPasswordPage());
+
         EditText oldPassword = findViewById(R.id.oldPasswordInput);
         EditText newPassword = findViewById(R.id.newPasswordInput);
 
-        //oldPassword.setText(passcodeActivity.password);
 
         Button updatePassword = findViewById(R.id.updatepasswordbutton);
         updatePassword.setOnClickListener(view -> {
