@@ -1,6 +1,12 @@
 package com.example.cmsc413project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +61,14 @@ public class SettingsActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        Button updatePasswordButton = findViewById(R.id.changePasswordButton);
+        updatePasswordButton.setOnClickListener(view -> openUpdatePasswordPage());
+
     }
 
+    private void openUpdatePasswordPage(){
+        Intent updatePasswordPage = new Intent (this, ChangePassword.class);
+        startActivity(updatePasswordPage);
+    }
 }

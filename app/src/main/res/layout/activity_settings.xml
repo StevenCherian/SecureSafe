@@ -21,7 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -35,14 +36,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_nav" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/changePasswordButton"
+        android:layout_height="60dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="50dp"
         android:text="Change Login Password"
+        android:backgroundTint="@color/text_blue"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsText" />
+        app:layout_constraintTop_toBottomOf="@+id/SettingsText"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_width="150pt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#032947"
+        android:textSize="22sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
