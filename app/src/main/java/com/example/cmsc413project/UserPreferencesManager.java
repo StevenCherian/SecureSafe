@@ -79,6 +79,8 @@ public class UserPreferencesManager {
             }
         }
 
+
+
         String loginCredentialsJson = gson.toJson(loginCredentials);
         editor.putString(PREFS_LOGIN_CREDENTIALS, loginCredentialsJson);
         editor.apply();
