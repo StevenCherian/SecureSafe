@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,7 +42,8 @@ public class EditCredentialsActivity extends AppCompatActivity {
         email.setText(lc.email);
 
         EditText password = findViewById(R.id.editPasswordInput);
-        password.setText(lc.password);
+        //String decryptedPassword = lc.password;
+        password.setText(LoginCredentials.decrypt(lc.password));
 
         Button saveCredentials = findViewById(R.id.editCredentialsButton);
         saveCredentials.setOnClickListener(view -> {
@@ -58,6 +60,7 @@ public class EditCredentialsActivity extends AppCompatActivity {
     public void updateLoginCredential(String account, String email, String password) {
         if(credentialsID != -1)
             manager.updateLoginCredentials(credentialsID, account, email, password);
+
         else {
             Toast t = new Toast(this);
             t.setDuration(Toast.LENGTH_SHORT);

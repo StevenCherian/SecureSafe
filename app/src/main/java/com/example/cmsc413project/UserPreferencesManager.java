@@ -73,7 +73,7 @@ public class UserPreferencesManager {
             if(loginCredentials.get(i).id == id) {
                 lc = loginCredentials.get(i);
                 lc.appName = newAccountTitle;
-                lc.password = newPassword;
+                lc.password = lc.encrypt(newPassword);
                 lc.email = newEmail;
                 break;
             }

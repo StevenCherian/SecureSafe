@@ -16,11 +16,31 @@ public class LoginCredentials {
     }
 
     public String encrypt(String password){
-        return password;
+        String encryptedPassword = "";
+        try {
+            char[] result = new char[password.length()];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = (char) (password.charAt(i) + 13);
+            }
+            encryptedPassword = new String(result);
+        }catch(Exception ioe){
+            ioe.printStackTrace();
+        }
+        return (encryptedPassword);
     }
 
-    public String decrypt(String password){
-        return password;
+    public static String decrypt(String password){
+        String decryptedPassword = "";
+        try {
+            char[] result = new char[password.length()];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = (char) (password.charAt(i) - 13);
+            }
+            decryptedPassword = new String(result);
+        }catch(Exception ioe){
+            ioe.printStackTrace();
+        }
+        return decryptedPassword;
     }
 
     @NonNull
