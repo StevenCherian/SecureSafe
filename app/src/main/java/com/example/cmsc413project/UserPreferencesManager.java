@@ -34,10 +34,10 @@ public class UserPreferencesManager {
         Gson gson = new Gson();
 
         //Adds passed in login credentials to arraylist of credentials store on file.
-        //Applies changes
         loginCredentials.add(newLoginCredentials);
         String loginCredentialsJson = gson.toJson(loginCredentials);
         editor.putString(PREFS_LOGIN_CREDENTIALS, loginCredentialsJson);
+        //Applies changes
         editor.apply();
         loginCredentials = getLoginCredentials();
     }
@@ -64,7 +64,7 @@ public class UserPreferencesManager {
     }
 
     //Gets login credentials by passed in login credential ID, used for editing credentials
-     LoginCredentials getLoginCredentialsByID(int id) {
+    LoginCredentials getLoginCredentialsByID(int id) {
         //New login credentials object is created and is given data from an existing credential by ID
         LoginCredentials lc = new LoginCredentials(-1, "", "", "");
         for(int i = 0; i < loginCredentials.size(); i++) {
@@ -87,10 +87,13 @@ public class UserPreferencesManager {
         LoginCredentials lc;
         for(int i = 0; i < loginCredentials.size(); i++) {
             if(loginCredentials.get(i).id == id) {
+                //Sets created credentials object to the credential with matching ID
                 lc = loginCredentials.get(i);
+                //Sets updated account name
                 lc.appName = newAccountTitle;
                 //Once password is updated, it is re-encrypted
                 lc.password = lc.encrypt(newPassword);
+                //Sets updated email
                 lc.email = newEmail;
                 break;
             }
@@ -107,6 +110,7 @@ public class UserPreferencesManager {
         SharedPreferences.Editor editor = userPrefs.edit();
         //Increments ID stored in shared preferences file and applies changes
         latestID+=1;
+        //Applies changes
         editor.putInt(PREFS_LATEST_ID, latestID);
         editor.apply();
         return latestID;

@@ -23,11 +23,12 @@ public class SettingsActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId())
             {
+                //If home button is clicked on nav bar, "My safe" page is opened
                 case R.id.home:
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                     overridePendingTransition(0,0);
                     return true;
-
+                //If settings button is clicked on nav bar, nothing happens, since user was already on the page
                 case R.id.settings:
                     return true;
             }
@@ -40,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    //Opens the update passcode page
     private void openUpdatePasswordPage(){
         Intent updatePasswordPage = new Intent (this, ChangePassword.class);
         startActivity(updatePasswordPage);

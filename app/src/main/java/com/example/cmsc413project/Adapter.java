@@ -21,7 +21,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
     ArrayList<LoginCredentials> backupCredentialsArraylist;
     UserPreferencesManager manager;
 
-    //Constructor for the adapter. Gives adapter login credentials. Backup credentials arraylist is used for search
+    /*
+     * Constructor for the adapter. Gives adapter login credentials and context. Backup credentials arraylist is used for search
+     */
     public Adapter(Context context, ArrayList<LoginCredentials> loginCredentialsArrayList) {
         this.context = context;
         this.loginCredentialsArrayList = loginCredentialsArrayList;
@@ -55,6 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                 @Override
                 public void onAnimationStart(Animation animation) {}
 
+                //Once the animation ends, the item is deleted.
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     deleteItemAt(holder.getAdapterPosition());
@@ -72,6 +75,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                 @Override
                 public void onAnimationStart(Animation animation) {}
 
+                //Once animation ends, the method is called to edit selected credentials.
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     editItemAt(holder.getAdapterPosition());
@@ -89,12 +93,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         return loginCredentialsArrayList.size();
     }
 
+    /*
+     * This is the method used for the search functionality.
+     * This is from a website we used. Link is given in documentation.
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
+                /*
+                 * If no characters are entered in search input, it sets the credentials arraylist
+                 * to the backup credentials arraylist which is used to show the searched credentials
+                 */
                 if (charString.isEmpty()) {
                     loginCredentialsArrayList = backupCredentialsArraylist;
                 } else {
@@ -114,6 +126,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                 return filterResults;
             }
 
+            //Updates the search results shown once a character is entered in search box
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                loginCredentialsArrayList = (ArrayList<LoginCredentials>) filterResults.values;
@@ -132,6 +145,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         Button removeButton;
         Button editButton;
 
+        //Constructor for the MyView object.
         public MyView(@NonNull View itemView) {
             super(itemView);
             appHeading = itemView.findViewById(R.id.appHeading);
@@ -144,7 +158,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
 
     //Gives functionality to the edit button. Passes it the ID of the credential that will be edited.
     public void editItemAt(int adapterPos) {
+        //Gets ID of credentials from credentials arraylist
         int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
+        //Creates an intent to pass the ID to the edit credentials activity so data can be filled
         Intent edit = new Intent(context, EditCredentialsActivity.class);
         edit.putExtra("credentialsID", credentialsID);
         context.startActivity(edit);
@@ -152,9 +168,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
 
     //Gives functionality to the delete button. Passes it the ID of the credential that will be deleted.
     public void deleteItemAt(int adapterPos) {
+        //Gets ID of credentials from credentials arraylist
         int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
-        //Calls the remove function in user preferences class to correctly remove credential
+        //Calls the remove function in user preferences class with ID as parameter to correctly remove specified credential
         manager.removeLoginCredentialsByID(credentialsID);
+        //Notifies adapter that credentials have been removed and refreshes the list shown
         Adapter.this.notifyItemRemoved(adapterPos);
         loginCredentialsArrayList = manager.getLoginCredentials();
         backupCredentialsArraylist = loginCredentialsArrayList;

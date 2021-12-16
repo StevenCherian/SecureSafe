@@ -34,20 +34,24 @@ public class AddCredentialsActivity extends AppCompatActivity {
             else if(TextUtils.isEmpty(email.getText())) { email.setError("Username or email is required."); }
             else if(TextUtils.isEmpty(password.getText().toString().replace(" ", ""))) { password.setError("Password is required."); }
             else {
+                //Creates new credential passing the information entered from the inputs on the page and closes page to return to main page.
                 createNewLoginCredential(account.getText().toString(), email.getText().toString(), password.getText().toString());
                 closeNewCredentialsPage();
             }
         });
     }
 
-    //Creates the new credential and adds it to shared preferences
+    //Creates the new credential and adds it to shared preferences.
     public void createNewLoginCredential(String account, String email, String password) {
         //Creates new ID for the created credentials
         int id = manager.newID();
+        //Creates new login credentials object with the created ID.
         LoginCredentials lc = new LoginCredentials(id, account, email, password);
+        //Calls the add login credentials method in the UserPreferencesManager with the created login credentials object.
         manager.addLoginCredentials(lc);
     }
 
+    //Closes the add credentials page.
     private void closeNewCredentialsPage() {
         Intent newMainActivityPage = new Intent(this, MainActivity.class);
         startActivity(newMainActivityPage);

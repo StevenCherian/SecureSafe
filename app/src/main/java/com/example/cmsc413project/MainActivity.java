@@ -45,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId())
             {
+                //If home button in nav bar is clicked, nothing happens
                 case R.id.home:
                     return true;
 
+                //If settings button in nav bar is clicked, the settings page is opened
                 case R.id.settings:
                     startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
                     overridePendingTransition(0,0);
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //Instantiates the recycler view adapter and gives login credentials data
         adapter = new Adapter(this, loginCredentialsArrayList);
 
+        //Gets the recycler view and sets layout manager and adapter
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -74,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
+            /*
+             * As each character is typed, the filter method in adapter is called to refresh the arraylist
+             * when searching so the correct credentials show up on the screen
+             */
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 adapter.getFilter().filter(charSequence);
@@ -83,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {}
         });
 
+        //If there are no saved credentials, a view is shown saying that no credentials are saved
         LinearLayout noCredentialsView = findViewById(R.id.noCredentialsView);
 
         //Sorts recycler view in alphabetical order by app name
@@ -97,10 +105,14 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatButton searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(view -> {
+
+            //Once clicked, animation is played to open search bar
             ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 7f);
             animation.setDuration(125);
             animation.start();
             searchCredentials.requestFocus();
+
+            //Opens keyboard as search box slides into screen
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(searchCredentials, InputMethodManager.SHOW_IMPLICIT);
 
@@ -111,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             closeKeyboard();
             searchCredentials.setText("");
 
+            //Once clicked, animation is played to close search bar
             ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
             animation.setDuration(250);
             animation.start();
@@ -120,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Opens add credentials page
     private void openNewCredentialsPage() {
         Intent newCredentialsPage = new Intent(this, AddCredentialsActivity.class);
         startActivity(newCredentialsPage);
     }
 
+    //Closes keyboard
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
 

@@ -36,10 +36,11 @@ public class EditCredentialsActivity extends AppCompatActivity {
         Button closeAddCredentials = findViewById(R.id.closeEditCredentials);
         closeAddCredentials.setOnClickListener(view -> closeNewCredentialsPage());
 
-        //Populates fields with credentials data of selected credential
+        //Populates account field with credentials account data of selected credential
         EditText account = findViewById(R.id.editAccountInput);
         account.setText(lc.appName);
 
+        //Populates email field with credentials email data of selected credential
         EditText email = findViewById(R.id.editUsernameEmailInput);
         email.setText(lc.email);
 
@@ -55,7 +56,7 @@ public class EditCredentialsActivity extends AppCompatActivity {
             else if(TextUtils.isEmpty(email.getText())) { email.setError("Username or email is required."); }
             else if(TextUtils.isEmpty(password.getText().toString().replace(" ", ""))) { password.setError("Password is required."); }
             else {
-                //Applies changes with method call and closes edit page.
+                //Applies changes with update login credential method call and closes edit page.
                 updateLoginCredential(account.getText().toString(), email.getText().toString(), password.getText().toString());
                 closeNewCredentialsPage();
             }
@@ -68,6 +69,7 @@ public class EditCredentialsActivity extends AppCompatActivity {
             //Passes all credentials data to shared preferences for it to be updated in the shared preference file.
             manager.updateLoginCredentials(credentialsID, account, email, password);
 
+        //If the ID of the credentials being updated is -1, the user is notified that there was an error
         else {
             Toast t = new Toast(this);
             t.setDuration(Toast.LENGTH_SHORT);
@@ -76,6 +78,7 @@ public class EditCredentialsActivity extends AppCompatActivity {
         }
     }
 
+    //Closes the credentials page
     private void closeNewCredentialsPage() {
         Intent newMainActivityPage = new Intent(this, MainActivity.class);
         startActivity(newMainActivityPage);
