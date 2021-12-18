@@ -65,8 +65,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="#203043"
+        android:layout_height="66dp"
+        android:background="@drawable/navbar"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -117,6 +117,7 @@
             android:id="@+id/noCredentialsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/poppins"
             android:text="You have no saved credentials yet"
             android:textAlignment="center"
