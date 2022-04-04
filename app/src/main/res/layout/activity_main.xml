@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="22dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="0dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/searchButton"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/ic_search_24"
             android:backgroundTint="@color/text_blue"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />

@@ -64,12 +64,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                     if(!isPressed) {
                         holder.viewPasswordButton.setBackgroundResource(R.drawable.ic_filled_24);
                         isPressed = true;
-                        viewPasswordAt(holder.getAdapterPosition());
+                        viewPasswordAt(holder);
 
                     } else {
                         holder.viewPasswordButton.setBackgroundResource(R.drawable.ic_outline_24);
                         isPressed = false;
-                        hidePasswordAt(holder.getAdapterPosition());
+                        hidePasswordAt(holder);
                     }
 
                 }
@@ -110,24 +110,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
 
                 @Override
                 public void onAnimationRepeat(Animation animation) { }
-            });
-        });
-
-        //On click listener for the edit button. Calls the edit item method.
-        holder.editButton.setOnClickListener(view -> {
-            view.startAnimation(buttonPressAnimation);
-            buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {}
-
-                //Once animation ends, the method is called to edit selected credentials.
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    editItemAt(holder.getAdapterPosition());
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
             });
         });
     }
@@ -187,7 +169,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         TextView appHeading;
         TextView emailHeading;
         TextView pwdHeading;
-        Button editButton;
         Button viewPasswordButton;
         Button moreButton;
 
@@ -197,20 +178,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
             appHeading = itemView.findViewById(R.id.appHeading);
             emailHeading = itemView.findViewById(R.id.emailHeading);
             pwdHeading = itemView.findViewById(R.id.pwdHeading);
-            editButton = itemView.findViewById(R.id.editButton);
             viewPasswordButton = itemView.findViewById(R.id.viewPasswordButton);
             moreButton = itemView.findViewById(R.id.moreButton);
         }
     }
 
-    public void viewPasswordAt(int adapterPos) {
-        int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
-
+    public void viewPasswordAt(Adapter.MyView holder) {
+        int passwordIndex = holder.getAdapterPosition();
+        String password = loginCredentialsArrayList.get(passwordIndex).password;
+        holder.pwdHeading.setText(LoginCredentials.decrypt(password));
     }
 
-    public void hidePasswordAt(int adapterPos) {
-        int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
-
+    public void hidePasswordAt(Adapter.MyView holder) {
+        int passwordIndex = holder.getAdapterPosition();
+        String password = loginCredentialsArrayList.get(passwordIndex).password;
+        holder.pwdHeading.setText(LoginCredentials.encrypt(password));
     }
 
     //Gives functionality to the edit button. Passes it the ID of the credential that will be edited.

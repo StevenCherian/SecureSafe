@@ -14,7 +14,6 @@ public class LoginCredentials {
         this.appName = appName;
         this.email = email;
         this.password = encrypt(password);      //password is encrypted before storing to ensure more security
-        //plaintext password is never stored anywhere
     }
 
     /*
@@ -23,7 +22,7 @@ public class LoginCredentials {
         the password is never stored un-encrypted
      */
 
-    public String encrypt(String password){
+    public static String encrypt(String password){
         String encryptedPassword = "";
         try {
             char[] result = new char[password.length()];
