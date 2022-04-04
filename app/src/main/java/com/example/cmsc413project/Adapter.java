@@ -3,6 +3,7 @@ package com.example.cmsc413project;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -10,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
     ArrayList<LoginCredentials> loginCredentialsArrayList;
     ArrayList<LoginCredentials> backupCredentialsArraylist;
     UserPreferencesManager manager;
+    boolean isPressed = false;
 
     /*
      * Constructor for the adapter. Gives adapter login credentials and context. Backup credentials arraylist is used for search
@@ -48,23 +51,65 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         holder.emailHeading.setText(loginCredentials.email);
         holder.pwdHeading.setText(loginCredentials.password);
 
-        //On click listener for delete button. Calls the delete item method.
         Animation buttonPressAnimation = AnimationUtils.loadAnimation(this.context, R.anim.button_press);
 
-        holder.removeButton.setOnClickListener(view -> {
+        holder.viewPasswordButton.setOnClickListener(view -> {
             view.startAnimation(buttonPressAnimation);
             buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {}
+                public void onAnimationStart(Animation animation) { }
 
-                //Once the animation ends, the item is deleted.
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    deleteItemAt(holder.getAdapterPosition());
+                    if(!isPressed) {
+                        holder.viewPasswordButton.setBackgroundResource(R.drawable.ic_filled_24);
+                        isPressed = true;
+                        viewPasswordAt(holder.getAdapterPosition());
+
+                    } else {
+                        holder.viewPasswordButton.setBackgroundResource(R.drawable.ic_outline_24);
+                        isPressed = false;
+                        hidePasswordAt(holder.getAdapterPosition());
+                    }
+
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {}
+                public void onAnimationRepeat(Animation animation) { }
+            });
+        });
+
+        holder.moreButton.setOnClickListener(view -> {
+            view.startAnimation(buttonPressAnimation);
+            PopupMenu popupMenu = new PopupMenu(this.context, view);
+            popupMenu.getMenuInflater().inflate(R.menu.menu_dropdown, popupMenu.getMenu());
+
+            buttonPressAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) { }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            switch (menuItem.getItemId()) {
+                                case R.id.item_edit:
+                                    editItemAt(holder.getAdapterPosition());
+                                    return true;
+                                case R.id.item_delete:
+                                    deleteItemAt(holder.getAdapterPosition());
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    popupMenu.show();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) { }
             });
         });
 
@@ -142,8 +187,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
         TextView appHeading;
         TextView emailHeading;
         TextView pwdHeading;
-        Button removeButton;
         Button editButton;
+        Button viewPasswordButton;
+        Button moreButton;
 
         //Constructor for the MyView object.
         public MyView(@NonNull View itemView) {
@@ -151,9 +197,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
             appHeading = itemView.findViewById(R.id.appHeading);
             emailHeading = itemView.findViewById(R.id.emailHeading);
             pwdHeading = itemView.findViewById(R.id.pwdHeading);
-            removeButton = itemView.findViewById(R.id.removeButton);
             editButton = itemView.findViewById(R.id.editButton);
+            viewPasswordButton = itemView.findViewById(R.id.viewPasswordButton);
+            moreButton = itemView.findViewById(R.id.moreButton);
         }
+    }
+
+    public void viewPasswordAt(int adapterPos) {
+        int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
+
+    }
+
+    public void hidePasswordAt(int adapterPos) {
+        int credentialsID = loginCredentialsArrayList.get(adapterPos).id;
+
     }
 
     //Gives functionality to the edit button. Passes it the ID of the credential that will be edited.
