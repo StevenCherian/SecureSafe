@@ -24,9 +24,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
     UserPreferencesManager manager;
     boolean isPressed = false;
 
-    /*
-     * Constructor for the adapter. Gives adapter login credentials and context. Backup credentials arraylist is used for search
-     */
+
+    //Constructor for the adapter. Gives adapter login credentials and context. Backup credentials arraylist is used for search
     public Adapter(Context context, ArrayList<LoginCredentials> loginCredentialsArrayList) {
         this.context = context;
         this.loginCredentialsArrayList = loginCredentialsArrayList;
@@ -39,7 +38,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
     @Override
     public Adapter.MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.password_list, parent, false);
-
         return new MyView(v);
     }
 
@@ -71,7 +69,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                         isPressed = false;
                         hidePasswordAt(holder);
                     }
-
                 }
 
                 @Override
@@ -144,7 +141,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyView> implements Fil
                         if (row.appName.toLowerCase().contains(charString.toLowerCase()))
                             filteredList.add(row);
                     }
-
                     loginCredentialsArrayList = filteredList;
                 }
 

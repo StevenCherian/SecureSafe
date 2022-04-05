@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.annotation.SuppressLint;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 public class SettingsActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
@@ -21,8 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.settings);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId())
-            {
+            switch (item.getItemId()) {
                 //If home button is clicked on nav bar, "My safe" page is opened
                 case R.id.home:
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));

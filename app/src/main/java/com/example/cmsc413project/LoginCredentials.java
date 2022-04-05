@@ -1,5 +1,5 @@
 package com.example.cmsc413project;
-//imports
+
 import androidx.annotation.NonNull;
 
 public class LoginCredentials {
@@ -21,7 +21,6 @@ public class LoginCredentials {
         this method also re-encrypts the password if the user edits the password later on
         the password is never stored un-encrypted
      */
-
     public static String encrypt(String password){
         String encryptedPassword = "";
         try {

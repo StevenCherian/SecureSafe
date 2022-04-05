@@ -1,5 +1,5 @@
 package com.example.cmsc413project;
-//all necessary imports
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,7 +74,5 @@ public class ChangePassword extends AppCompatActivity {
     private void closeNewPasswordPage(){
         Intent newSettingsPage = new Intent(this, SettingsActivity.class);
         startActivity(newSettingsPage);
-
     }
-
 }
