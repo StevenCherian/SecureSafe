@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SecureSafe</string>
+    <string name="item_edit"><big><font family="@font/Poppins" color="#9ca1b5">Edit</font></big></string>
+    <string name="item_delete"><big><font family="@font/Poppins" color="#9ca1b5">Delete</font></big></string>
 </resources>
