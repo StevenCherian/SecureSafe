@@ -8,7 +8,6 @@ public class LoginCredentials {
     String email;
     String password;
 
-    //constructor for all variables
     public LoginCredentials(int id, String appName, String email, String password) {
         this.id = id;
         this.appName = appName;
@@ -17,9 +16,9 @@ public class LoginCredentials {
     }
 
     /*
-        this method encrypts the password for the account when the add credentials activity happens
-        this method also re-encrypts the password if the user edits the password later on
-        the password is never stored un-encrypted
+        This method encrypts the password for the account when the add credentials activity happens.
+        This method also re-encrypts the password if the user edits the password later on.
+        The password is never stored un-encrypted.
      */
     public static String encrypt(String password){
         String encryptedPassword = "";
@@ -36,8 +35,9 @@ public class LoginCredentials {
     }
 
     /*
-        this method decrypts the password for the account when the view/edit credentials activity happens
-        the password is never stored un-encrypted, rather it is decrypted from the stored encrypted version whenever the view/edit button is pressed
+        This method decrypts the password for the account when the view/edit credentials activity happens.
+        The password is never stored un-encrypted, rather it is decrypted from the stored encrypted
+        version whenever the view/edit button is pressed.
      */
     public static String decrypt(String password){
         String decryptedPassword = "";

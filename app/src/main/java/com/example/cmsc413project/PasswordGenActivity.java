@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -87,7 +86,6 @@ public class PasswordGenActivity extends AppCompatActivity {
             Toast.makeText(PasswordGenActivity.this, "Password Copied", Toast.LENGTH_SHORT).show();
         });
 
-
         //Sets bottom navigation bar actions
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.password_gen);
@@ -111,6 +109,5 @@ public class PasswordGenActivity extends AppCompatActivity {
             }
             return false;
         });
-
     }
 }

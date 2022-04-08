@@ -43,15 +43,11 @@ public class AddCredentialsActivity extends AppCompatActivity {
 
     //Creates the new credential and adds it to shared preferences.
     public void createNewLoginCredential(String account, String email, String password) {
-        //Creates new ID for the created credentials
-        int id = manager.newID();
-        //Creates new login credentials object with the created ID.
-        LoginCredentials lc = new LoginCredentials(id, account, email, password);
-        //Calls the add login credentials method in the UserPreferencesManager with the created login credentials object.
-        manager.addLoginCredentials(lc);
+        int id = manager.newID(); //Creates new ID for the created credentials
+        LoginCredentials lc = new LoginCredentials(id, account, email, password); //Creates new login credentials object with the created ID.
+        manager.addLoginCredentials(lc); //Calls the add login credentials method in the UserPreferencesManager with the created login credentials object.
     }
 
-    //Closes the add credentials page.
     private void closeNewCredentialsPage() {
         Intent newMainActivityPage = new Intent(this, MainActivity.class);
         startActivity(newMainActivityPage);

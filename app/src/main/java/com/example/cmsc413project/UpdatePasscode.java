@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ChangePassword extends AppCompatActivity {
+public class UpdatePasscode extends AppCompatActivity {
     private UserPreferencesManager manager;
     PasscodeActivity passcodeActivity = new PasscodeActivity();
 

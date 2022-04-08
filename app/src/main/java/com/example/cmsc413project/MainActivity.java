@@ -38,31 +38,6 @@ public class MainActivity extends AppCompatActivity {
         manager = new UserPreferencesManager(MainActivity.this);
         loginCredentialsArrayList = manager.getLoginCredentials();
 
-        //Sets bottom navigation bar and actions
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.home);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId())
-            {
-                //If home button in nav bar is clicked, nothing happens
-                case R.id.home:
-                    return true;
-
-                case R.id.password_gen:
-                    startActivity(new Intent(getApplicationContext(), PasswordGenActivity.class));
-                    overridePendingTransition(0,0);
-                    return true;
-
-                //If settings button in nav bar is clicked, the settings page is opened
-                case R.id.settings:
-                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                    overridePendingTransition(0,0);
-                    return true;
-            }
-            return false;
-        });
-
         //Gives functionality to add credentials button
         Button addButton = findViewById(R.id.addCredentialsButton);
         addButton.setOnClickListener(view -> openNewCredentialsPage());
@@ -80,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         searchCredentials = findViewById(R.id.searchInput);
         searchCredentials.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
             /*
              * As each character is typed, the filter method in adapter is called to refresh the arraylist
@@ -92,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) { }
         });
 
         //If there are no saved credentials, a view is shown saying that no credentials are saved
@@ -110,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatButton searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(view -> {
-
             //Once clicked, animation is played to open search bar
             ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", 7f);
             animation.setDuration(125);
@@ -135,6 +109,28 @@ public class MainActivity extends AppCompatActivity {
 
             //Clears filter for searching
             recyclerView.setAdapter(adapter);
+        });
+
+        //Sets bottom navigation bar and actions
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    return true;
+
+                case R.id.password_gen:
+                    startActivity(new Intent(getApplicationContext(), PasswordGenActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+
+                case R.id.settings:
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
         });
     }
 

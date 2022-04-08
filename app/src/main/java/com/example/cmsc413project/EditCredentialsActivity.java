@@ -63,7 +63,6 @@ public class EditCredentialsActivity extends AppCompatActivity {
         });
     }
 
-    //Method to update the login credentials
     public void updateLoginCredential(String account, String email, String password) {
         if(credentialsID != -1)
             //Passes all credentials data to shared preferences for it to be updated in the shared preference file.
@@ -78,7 +77,6 @@ public class EditCredentialsActivity extends AppCompatActivity {
         }
     }
 
-    //Closes the credentials page
     private void closeNewCredentialsPage() {
         Intent newMainActivityPage = new Intent(this, MainActivity.class);
         startActivity(newMainActivityPage);
