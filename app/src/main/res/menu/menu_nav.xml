@@ -2,11 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:title="My Safe"
+        android:title=""
         android:icon="@drawable/ic_lock"/>
 
     <item
+        android:id="@+id/password_gen"
+        android:title=""
+        android:icon="@drawable/ic_password_24"/>
+
+    <item
         android:id="@+id/settings"
-        android:title="Settings"
+        android:title=""
         android:icon="@drawable/ic_settings"/>
 </menu>

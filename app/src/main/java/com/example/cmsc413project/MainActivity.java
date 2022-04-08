@@ -49,9 +49,14 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     return true;
 
+                case R.id.password_gen:
+                    startActivity(new Intent(getApplicationContext(), PasswordGenActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+
                 //If settings button in nav bar is clicked, the settings page is opened
                 case R.id.settings:
-                    startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                     overridePendingTransition(0,0);
                     return true;
             }
