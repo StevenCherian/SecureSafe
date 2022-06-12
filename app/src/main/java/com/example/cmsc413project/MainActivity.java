@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     UserPreferencesManager manager;
     Adapter adapter;
     EditText searchCredentials;
+    //test push comment
 
     @SuppressLint("NonConstantResourceId")
     @Override
