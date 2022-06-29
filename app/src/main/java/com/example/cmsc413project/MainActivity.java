@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             searchCredentials.setText("");
 
             //Once clicked, animation is played to close search bar
-            ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -300f);
+            ObjectAnimator animation = ObjectAnimator.ofFloat(searchView, "translationY", -350f);
             animation.setDuration(250);
             animation.start();
 
